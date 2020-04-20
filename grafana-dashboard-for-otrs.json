@@ -1,4 +1,58 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SERVICEDESK",
+      "label": "servicedesk",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.7.1"
+    },
+    {
+      "type": "panel",
+      "id": "grafana-clock-panel",
+      "name": "Clock",
+      "version": "1.0.3"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,12 +69,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 10,
+  "id": null,
   "links": [],
   "panels": [
     {
       "content": "<img \n      src=\"#\"\n      alt=\"Company Logo\" \n      style=\"display:block; margin-left: auto; margin-right: auto;\">\n",
-      "datasource": null,
+      "datasource": "${DS_SERVICEDESK}",
       "description": "",
       "gridPos": {
         "h": 3,
@@ -44,7 +98,7 @@
         "endCountdownTime": "2018-05-12T10:39:00.000Z",
         "endText": "00:00:00"
       },
-      "datasource": "servicedesk",
+      "datasource": "${DS_SERVICEDESK}",
       "dateSettings": {
         "dateFormat": "DD/MM/YYYY",
         "fontSize": "20px",
@@ -115,7 +169,7 @@
     },
     {
       "columns": [],
-      "datasource": null,
+      "datasource": "${DS_SERVICEDESK}",
       "fontSize": "120%",
       "gridPos": {
         "h": 10,
@@ -169,7 +223,7 @@
     },
     {
       "columns": [],
-      "datasource": null,
+      "datasource": "${DS_SERVICEDESK}",
       "fontSize": "120%",
       "gridPos": {
         "h": 10,
@@ -258,7 +312,7 @@
     },
     {
       "columns": [],
-      "datasource": null,
+      "datasource": "${DS_SERVICEDESK}",
       "description": "",
       "fontSize": "120%",
       "gridPos": {
@@ -388,7 +442,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "${DS_SERVICEDESK}",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -495,7 +549,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "servicedesk",
+      "datasource": "${DS_SERVICEDESK}",
       "decimals": null,
       "format": "short",
       "gauge": {
@@ -604,7 +658,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "servicedesk",
+      "datasource": "${DS_SERVICEDESK}",
       "description": "",
       "fill": 1,
       "fillGradient": 0,
@@ -724,7 +778,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "servicedesk",
+      "datasource": "${DS_SERVICEDESK}",
       "decimals": null,
       "format": "none",
       "gauge": {
