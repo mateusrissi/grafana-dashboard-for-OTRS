@@ -3,4 +3,4 @@ select
 from
         ticket t
 where
-        datediff(t.create_time, now()) = 0;
+        date(t.create_time) = date(now());

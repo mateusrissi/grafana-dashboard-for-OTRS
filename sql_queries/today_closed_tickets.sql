@@ -5,5 +5,5 @@ from
         ticket_history th
 where
         t.id = th.ticket_id and
-        datediff(th.change_time, now()) = 0 and
+        date(th.change_time) = date(now()) and
         t.ticket_state_id in (2, 3, 10);
