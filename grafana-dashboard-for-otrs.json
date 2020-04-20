@@ -12,11 +12,10 @@
       }
     ]
   },
-  "description": "Dashboard for OTRS",
   "editable": true,
-  "gnetId": 10840,
+  "gnetId": null,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 10,
   "links": [],
   "panels": [
     {
@@ -26,7 +25,7 @@
       "gridPos": {
         "h": 3,
         "w": 12,
-        "x": 5,
+        "x": 4,
         "y": 0
       },
       "id": 12,
@@ -56,10 +55,10 @@
       "gridPos": {
         "h": 3,
         "w": 6,
-        "x": 17,
+        "x": 16,
         "y": 0
       },
-      "id": 25,
+      "id": 14,
       "links": [],
       "mode": "time",
       "offsetFromUtc": null,
@@ -124,7 +123,7 @@
         "x": 0,
         "y": 3
       },
-      "id": 21,
+      "id": 18,
       "links": [],
       "pageSize": null,
       "scroll": false,
@@ -178,7 +177,7 @@
         "x": 6,
         "y": 3
       },
-      "id": 29,
+      "id": 16,
       "links": [],
       "pageSize": null,
       "scroll": true,
@@ -260,17 +259,16 @@
     {
       "columns": [],
       "datasource": null,
-      "fontSize": "150%",
+      "description": "",
+      "fontSize": "120%",
       "gridPos": {
         "h": 10,
         "w": 12,
         "x": 12,
         "y": 3
       },
-      "id": 27,
-      "links": [],
-      "pageSize": null,
-      "scroll": true,
+      "id": 2,
+      "pageSize": 7,
       "showHeader": true,
       "sort": {
         "col": 0,
@@ -278,8 +276,23 @@
       },
       "styles": [
         {
+          "alias": "Atraso (horas)",
+          "align": "center",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "Atraso",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        },
+        {
           "alias": "",
-          "align": "auto",
+          "align": "center",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -296,24 +309,7 @@
         },
         {
           "alias": "",
-          "align": "auto",
-          "colorMode": "cell",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Título",
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "align": "auto",
+          "align": "center",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -329,8 +325,8 @@
           "unit": "short"
         },
         {
-          "alias": "Atraso (horas)",
-          "align": "auto",
+          "alias": "",
+          "align": "center",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -340,33 +336,34 @@
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 2,
           "mappingType": 1,
-          "pattern": "Atraso",
+          "pattern": "Título",
           "thresholds": [],
-          "type": "number",
+          "type": "string",
           "unit": "short"
         }
       ],
       "targets": [
         {
-          "alias": "",
           "format": "table",
           "group": [],
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select \n        t.tn as Ticket,\n\t\t    t.title as Título,\n\t\t    t.create_time as Abertura,\n\t\t    sec_to_time(to_seconds(now())-to_seconds(from_unixtime(t.escalation_solution_time))) as Atraso\nfrom \n\t\t    ticket t, \n\t\t    queue q, \n\t\t    ticket_state ts, \n\t\t    sla s\nwhere \n    \t\tt.queue_id = q.id and \n    \t\tt.ticket_state_id = ts.id and\n    \t\tt.sla_id = s.id and \n    \t\tq.name <> 'Junk' and \n    \t\tts.id not in (2,3,10) and \n    \t\tfrom_unixtime(t.escalation_solution_time) < NOW() and \n    \t\tt.escalation_solution_time > 0",
+          "rawSql": "select \n    t.tn as Ticket,\n\t\tt.title as Título,\n\t\tt.create_time as Abertura,\n\t\tsec_to_time(to_seconds(now())-to_seconds(from_unixtime(t.escalation_solution_time))) as Atraso\nfrom \n\t\tticket t, \n\t\tqueue q, \n\t\tticket_state ts, \n\t\tsla s\nwhere \n    \tt.queue_id = q.id and \n    \tt.ticket_state_id = ts.id and\n    \tt.sla_id = s.id and \n    \tq.name <> 'Junk' and \n    \tts.id not in (2,3,10) and \n    \tfrom_unixtime(t.escalation_solution_time) < NOW() and \n    \tt.escalation_solution_time > 0;",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "value"
+                  "id"
                 ],
                 "type": "column"
               }
             ]
           ],
-          "timeColumn": "time",
+          "table": "acl",
+          "timeColumn": "create_time",
+          "timeColumnType": "timestamp",
           "where": [
             {
               "name": "$__timeFilter",
@@ -376,6 +373,8 @@
           ]
         }
       ],
+      "timeFrom": null,
+      "timeShift": null,
       "title": "SLA Vencido",
       "transform": "table",
       "type": "table"
@@ -383,16 +382,13 @@
     {
       "cacheTimeout": null,
       "colorBackground": true,
-      "colorPostfix": false,
-      "colorPrefix": false,
       "colorValue": false,
       "colors": [
-        "#56A64B",
-        "#FF780A",
+        "#299c46",
+        "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "servicedesk",
-      "description": "",
+      "datasource": null,
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -407,7 +403,7 @@
         "x": 0,
         "y": 13
       },
-      "id": 2,
+      "id": 4,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -424,6 +420,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "pluginVersion": "6.7.1",
       "postfix": "",
       "postfixFontSize": "80%",
       "prefix": "",
@@ -448,24 +445,23 @@
         {
           "format": "table",
           "group": [],
-          "hide": false,
-          "metricColumn": "Situacao",
+          "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "select\r\n        count(*) Novos\r\nfrom\r\n        ticket\r\nwhere\r\n        ticket_state_id = 1",
+          "rawSql": "select\n      count(*) Novos\nfrom\n      ticket\nwhere\n      ticket_state_id = 1;",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "ticket_id"
+                  "id"
                 ],
                 "type": "column"
               }
             ]
           ],
-          "table": "v_relat",
-          "timeColumn": "DataCriacao",
-          "timeColumnType": "datetime",
+          "table": "acl",
+          "timeColumn": "create_time",
+          "timeColumnType": "timestamp",
           "where": [
             {
               "name": "$__timeFilter",
@@ -475,11 +471,10 @@
           ]
         }
       ],
-      "thresholds": "50,80",
+      "thresholds": "",
       "timeFrom": null,
       "timeShift": null,
       "title": "Tickets Novos",
-      "transparent": true,
       "type": "singlestat",
       "valueFontSize": "200%",
       "valueMaps": [
@@ -516,7 +511,7 @@
         "x": 4,
         "y": 13
       },
-      "id": 16,
+      "id": 20,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -620,7 +615,7 @@
         "y": 13
       },
       "hiddenSeries": false,
-      "id": 23,
+      "id": 10,
       "interval": "",
       "legend": {
         "alignAsTable": false,
@@ -745,7 +740,7 @@
         "x": 4,
         "y": 17
       },
-      "id": 19,
+      "id": 8,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -832,7 +827,6 @@
       "valueName": "avg"
     }
   ],
-  "refresh": "1m",
   "schemaVersion": 22,
   "style": "dark",
   "tags": [],
@@ -858,10 +852,10 @@
     ]
   },
   "timezone": "browser",
-  "title": "Service Desk",
-  "uid": "8VJ_PAcWz",
+  "title": "dashboard_for_otrs",
+  "uid": "4qneNh3Zk",
   "variables": {
     "list": []
   },
-  "version": 27
+  "version": 4
 }
